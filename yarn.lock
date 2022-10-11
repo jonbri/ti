@@ -600,6 +600,11 @@ magic-string@^0.26.2:
   dependencies:
     sourcemap-codec "^1.4.8"
 
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://artifact.unx.sas.com:443/artifactory/api/npm/re-common-npm-virtual/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
+
 ms@2.1.2:
   version "2.1.2"
   resolved "https://artifact.unx.sas.com:443/artifactory/api/npm/re-common-npm-virtual/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
@@ -633,6 +638,11 @@ postcss@^8.4.16:
     nanoid "^3.3.4"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
+
+prettier@^2.7.1:
+  version "2.7.1"
+  resolved "https://artifact.unx.sas.com:443/artifactory/api/npm/re-common-npm-virtual/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
 
 react-dom@^18.2.0:
   version "18.2.0"

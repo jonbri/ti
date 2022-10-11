@@ -1,4 +1,10 @@
-const data = [
+export interface RawItem {
+  name: string;
+  birthday: string;
+  death?: string;
+  hide?: boolean;
+}
+const data: RawItem[] = [
   {
     name: "Tracy",
     birthday: "1983-07-07",
@@ -108,7 +114,7 @@ const data = [
   },
   {
     name: "DB",
-    birthday: "1962-04-09"
+    birthday: "1962-04-09",
   },
   {
     name: "Michael",
@@ -177,6 +183,6 @@ const data = [
   {
     name: "Respite",
     birthday: "2022-08-01",
-  }
+  },
 ];
 export default data;
