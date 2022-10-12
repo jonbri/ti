@@ -1,6 +1,6 @@
 import moment from "moment";
 import { Item } from "./types";
-import "./App.css";
+import "./App.scss";
 
 const nowMonth = new Date().getMonth() + 1;
 const nowDate = new Date().getDate();
