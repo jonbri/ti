@@ -1,69 +1,12 @@
-import React from "react";
-import data, { RawItem } from "./data";
-import moment, { Moment, unitOfTime } from "moment";
+import moment from "moment";
+import { Item } from "./types";
 import "./App.css";
 
-interface Item extends RawItem {
-  formattedAge: string;
-  daysUntilBirthday: number;
-}
-
-// https://codepen.io/blackjacques/pen/RKPKba
-const getFormattedDateDiff = (
-  date1: string | Moment,
-  date2: string | Moment
-) => {
-  var b = moment(date1),
-    a = moment(date2),
-    out: string[] = [];
-  const singularize = (s: string, num: number) =>
-    num === 1 ? s.slice(0, -1) : s;
-  const intervals: unitOfTime.Diff[] = ["years", "months"];
-  intervals.forEach((interval) => {
-    var diff = a.diff(b, interval);
-    b.add(diff, interval);
-    if (diff > 0) out.push(`${diff} ${singularize(interval, diff)}`);
-  });
-  return out.join(", ") || "0";
-};
-
-const getDayOfYear = (m: string | moment.Moment) =>
-  parseInt(moment(m).format("DDD"));
 const nowMonth = new Date().getMonth() + 1;
 const nowDate = new Date().getDate();
 
-const transformData = (o: RawItem): Item => {
-  const now = moment();
-  const currentYear = new Date().getFullYear();
-  const formattedAge = o.death
-    ? getFormattedDateDiff(o.birthday, o.death)
-    : getFormattedDateDiff(o.birthday, now);
-  const sBirthdayCurrentYear = o.birthday.replace(
-    /^[\d]+/,
-    currentYear.toString()
-  );
-  let daysUntilBirthday = -1;
-  if (!o.death) {
-    const iBirthdayDayOfYear = getDayOfYear(sBirthdayCurrentYear);
-    const iCurrentDayOfYear = getDayOfYear(now);
-    if (iBirthdayDayOfYear > iCurrentDayOfYear) {
-      // birthday has not yet passed
-      daysUntilBirthday = iBirthdayDayOfYear - iCurrentDayOfYear;
-    } else {
-      daysUntilBirthday = iBirthdayDayOfYear + (365 - iCurrentDayOfYear);
-    }
-  }
-  return {
-    ...o,
-    formattedAge,
-    daysUntilBirthday,
-  };
-};
-
-const dates = data.map(transformData);
-
 const numberOfUpcoming = 4;
-const createUpcoming = () => {
+const createUpcoming = (dates: Item[]) => {
   let sorted = dates.slice().filter(({ hide }) => !hide);
   sorted = sorted.sort(
     (
@@ -84,14 +27,17 @@ const createUpcoming = () => {
   return display.join(", ");
 };
 
-const App = () => (
+export interface AppProps {
+  dates: Item[];
+}
+const App = ({ dates }: AppProps) => (
   <div>
     <h3>
       <a href="./">{moment().format("MMMM DD, YYYY")}</a>
     </h3>
     <h4 className="soon">
       <span>Soon: </span>
-      {createUpcoming()}
+      {createUpcoming(dates)}
     </h4>
     <table>
       <tbody>
@@ -122,9 +68,10 @@ const App = () => (
                 key={name}
               >
                 <td colSpan={2}>
-                  {formattedAge.replace(/[^\d]+/, "") +
-                    " " +
-                    name.toUpperCase()}
+                  {`${formattedAge.replace(
+                    /[^\d]+/,
+                    ""
+                  )} ${name.toUpperCase()}`}
                 </td>
                 <td
                   style={{

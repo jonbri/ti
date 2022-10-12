@@ -1,9 +1,5 @@
-export interface RawItem {
-  name: string;
-  birthday: string;
-  death?: string;
-  hide?: boolean;
-}
+import { RawItem } from "./types";
+
 const data: RawItem[] = [
   {
     name: "Tracy",
