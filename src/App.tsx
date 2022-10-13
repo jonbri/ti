@@ -2,51 +2,25 @@ import moment from "moment";
 import { Item } from "./types";
 import "./App.scss";
 
-const nowMonth = new Date().getMonth() + 1;
-const nowDate = new Date().getDate();
-
-const numberOfUpcoming = 4;
-const createUpcoming = (dates: Item[]) => {
-  let sorted = dates.slice().filter(({ hide }) => !hide);
-  sorted = sorted.sort(
-    (
-      { death: death0, daysUntilBirthday: daysUntilBirthday0 },
-      { daysUntilBirthday: daysUntilBirthday1 }
-    ) => {
-      if (death0) return 1;
-      else if (daysUntilBirthday0 === daysUntilBirthday1) return 0;
-      else if (daysUntilBirthday0 < daysUntilBirthday1) return -1;
-      else if (daysUntilBirthday0 > daysUntilBirthday1) return 1;
-      return 0;
-    }
-  );
-  const display = [];
-  for (let i = 0; i < numberOfUpcoming; i++) {
-    display.push(`${sorted[i].name}: ${sorted[i].daysUntilBirthday}`);
-  }
-  return display.join(", ");
-};
+const now = new Date();
+const nowMonth = now.getMonth() + 1;
+const nowDate = now.getDate();
 
 export interface AppProps {
   dates: Item[];
+  upcoming: string;
 }
-const App = ({ dates }: AppProps) => (
+const App = ({ dates, upcoming }: AppProps) => (
   <div>
     <h3>
       <a href="./">{moment().format("MMMM DD, YYYY")}</a>
     </h3>
     <h4 className="soon">
       <span>Soon: </span>
-      {createUpcoming(dates)}
+      {upcoming}
     </h4>
     <table>
       <tbody>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
         {dates.map(
           ({
             name,
@@ -58,7 +32,7 @@ const App = ({ dates }: AppProps) => (
           }) => {
             let rowColor = "";
             if (death) rowColor = "passedAway";
-            else if (hide === true) rowColor = "hide";
+            else if (hide) rowColor = "hide";
             const [, month, date] = birthday.split("-");
             return !death &&
               nowMonth === parseInt(month) &&
