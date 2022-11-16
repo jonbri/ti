@@ -15,10 +15,7 @@ const App = ({ dates, upcoming }: AppProps) => (
     <h3>
       <a href="./">{moment().format("MMMM DD, YYYY")}</a>
     </h3>
-    <h4 className="soon">
-      <span>Soon: </span>
-      {upcoming}
-    </h4>
+    <h4 className="soon">{upcoming}</h4>
     <table>
       <tbody>
         {dates.map(
