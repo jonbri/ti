@@ -25,6 +25,7 @@ a:active {
   border-left: 4px solid #2f7604;
 }
 
+pre,
 h3,
 h4 {
   margin: 0;
@@ -56,6 +57,7 @@ tr:nth-child(odd) {
 
 table {
   border-collapse: collapse;
+  border: 1px solid gray;
 }
 table td {
   padding: 5px 3px;
@@ -80,4 +82,8 @@ table td:first-child {
 }
 .soon span {
   font-style: italic;
+}
+
+.upcoming {
+  margin: 10px 0;
 }
